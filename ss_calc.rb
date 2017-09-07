@@ -5,19 +5,40 @@ require 'date'
 class SsCalc
   attr_reader :current_income, :birthday, :claim_date, :spousal_benefits
 
+  GROWTH_RATE = 2
+
   def initialize(current_income, birthday, claim_date, spousal_benefits)
     @current_income = current_income ||=  0
     @birthday = Date::strptime(birthday,"%m-%d-%Y")
-    @claim_date = claim_date ||= @birthday
+    @claim_date = Date::strptime(claim_date, '%m-%d-%Y')
     @spousal_benefits = spousal_benefits ||= false
   end
 
-  
-
   def calculate_first_check
     1016.00
-    # do math on the above Arguments
-    # return float of value of first SS check (as monthly value)
+    # todo: build this function out. Above amount given by SS calc
+    # for test params
+  end
+
+  def benefits_base
+    # take average of top 35 income-earning years
+    average_income
+  end
+
+  def monthly_benefits_base
+    # will probably be benefits_base / 12
+  end
+
+  def average_income
+    # project back based on GROWTH_RATE to calculate top 35 income-earning years.
+    # projection_base is current_age && current_income
+    # add 2% growth to current_income per year, incrementing current_age until 70
+    # Average top 35 years (so prob yrs 35-70)
+
+  end
+
+  def retirement_age(age = Date.today)
+    age - birthday.year
   end
 
 end
